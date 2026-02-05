@@ -29,6 +29,7 @@ def create_loan_application(loan_application_create: LoanApplicationCreate):
     loan_applications.append(new_loan_application)
     return new_loan_application
 
+
 @app.put("/loans/{loan_id}")
 def update_loan_application(loan_id: int, updated_loan: LoanApplicationCreate):
     for loan_application in loan_applications:
