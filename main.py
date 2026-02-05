@@ -58,3 +58,5 @@ def delete_loan_application(loan_id: int):
     for i, loan_application in enumerate(loan_applications):
         if loan_id == loan_application.id:
             loan_applications.pop(i)
+            return
+    raise HTTPException(status_code=404, detail="Loan application not found")
