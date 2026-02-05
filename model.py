@@ -14,7 +14,7 @@ class LoanStatus(Enum):
 class LoanApplication:
     ID = 0
 
-    def __init__(self, applicant_name, amount, term_months):
+    def __init__(self, applicant_name: str, amount: float, term_months: int):
         self.id = LoanApplication.ID
         self.status = LoanStatus.SUBMITTED
         self.created_at = datetime.utcnow()
