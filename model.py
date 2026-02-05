@@ -6,7 +6,6 @@ from pydantic import BaseModel, conint
 
 class LoanStatus(Enum):
     SUBMITTED = "submitted"
-    REVIEWED = "reviewed"
     APPROVED = "approved"
     DENIED = "denied"
 
