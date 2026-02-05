@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from storage import loan_applications
-from model import LoanApplication
-
+from model import LoanApplication, LoanStatus
+from datetime import datetime
 
 app = FastAPI()
 
@@ -14,14 +14,15 @@ def read_loan_application(loan_application_id: int):
     return {"error": "Loan application not found"}
 
 
-@app.put("/loans/{loan_id}")
-def create_loan_application(loan_id: int, loan_application: LoanApplication):
+@app.post("/loans/{loan_id}")
+def create_loan_application(loan_application: LoanApplication):
     new_loan_application = {
-        "id": loan_id,
+        "id": len(loan_applications),
         "name": loan_application.applicant_name,
         "amount": loan_application.amount,
         "annual_income": loan_application.annual_income,
-        "status": loan_application.status,
+        "status": LoanStatus.SUBMITTED,
+        "created_at": datetime.utcnow(),
     }
     loan_applications.append(new_loan_application)
     return new_loan_application

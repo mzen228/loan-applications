@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 
 from pydantic import BaseModel
@@ -12,6 +13,6 @@ class LoanStatus(Enum):
 
 class LoanApplication(BaseModel):
     applicant_name: str
-    amount: float
+    amount: float = 0
     annual_income: float
-    status: LoanStatus
+    term_months: int
