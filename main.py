@@ -17,7 +17,7 @@ def read_loan_application(loan_id: int):
     raise HTTPException(status_code=404, detail="Loan application not found")
 
 
-@app.post("/loans/{loan_id}", status_code=201)
+@app.post("/loans/", status_code=201)
 def create_loan_application(loan_application_create: LoanApplicationCreate):
     new_loan_application = LoanApplication(
         applicant_name=loan_application_create.applicant_name,
