@@ -1,5 +1,10 @@
 from fastapi import FastAPI, HTTPException
-from storage import loan_applications, get_loan_application, update_loan_application, pop_loan_application
+from storage import (
+    loan_applications,
+    get_loan_application,
+    update_loan_application,
+    pop_loan_application,
+)
 from model import LoanApplicationCreate, LoanApplication
 
 app = FastAPI()
@@ -50,8 +55,6 @@ def patch_loan_application(loan_id: int, key: str, value):
             raise HTTPException(status_code=404, detail="Key not found")
     else:
         raise HTTPException(status_code=404, detail="Loan application not found")
-
-
 
 
 @app.delete("/loans/{loan_id}")
