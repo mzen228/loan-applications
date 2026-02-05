@@ -10,9 +10,9 @@ def read_loan_applications():
     return loan_applications
 
 
-@app.get("/loans/{loan_application_id}")
-def read_loan_application(loan_application_id: int):
-    if loan_application := get_loan_application(loan_application_id):
+@app.get("/loans/{loan_id}")
+def read_loan_application(loan_id: int):
+    if loan_application := get_loan_application(loan_id):
         return loan_application
     raise HTTPException(status_code=404, detail="Loan application not found")
 
