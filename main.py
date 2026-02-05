@@ -18,7 +18,7 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/loans/{item_id}")
+@app.get("/loans/{loan_application_id}")
 def read_loan_application(loan_application_id: int):
     for loan_application in loan_applications:
         if loan_application_id == loan_application.get("id"):
