@@ -12,6 +12,7 @@ def read_loan_application(loan_application_id: int):
             return loan_application
     return {"error": "Loan application not found"}
 
+
 @app.get("/loans")
 def read_loan_applications():
     return loan_applications
