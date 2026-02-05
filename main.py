@@ -6,11 +6,6 @@ from model import LoanApplication
 app = FastAPI()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
 @app.get("/loans/{loan_application_id}")
 def read_loan_application(loan_application_id: int):
     for loan_application in loan_applications:
