@@ -17,12 +17,12 @@ class LoanApplication:
         self, applicant_name: str, amount: float, term_months: int, annual_income: int
     ):
         self.id = LoanApplication.ID
-        self.status = LoanStatus.SUBMITTED
-        self.created_at = datetime.utcnow()
         self.applicant_name = applicant_name
         self.loan_amount_usd = amount
         self.loan_length_months = term_months
         self.annual_income_usd = annual_income
+        self.status = LoanStatus.SUBMITTED
+        self.created_at = datetime.utcnow()
 
         LoanApplication.ID += 1
 
