@@ -14,13 +14,14 @@ class LoanStatus(Enum):
 class LoanApplication:
     ID = 0
 
-    def __init__(self, applicant_name: str, amount: float, term_months: int):
+    def __init__(self, applicant_name: str, amount: float, term_months: int, annual_income: int):
         self.id = LoanApplication.ID
         self.status = LoanStatus.SUBMITTED
         self.created_at = datetime.utcnow()
         self.applicant_name = applicant_name
         self.amount = amount
         self.term_months = term_months
+        self.annual_income = annual_income
 
         LoanApplication.ID += 1
 
