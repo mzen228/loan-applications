@@ -56,7 +56,7 @@ def patch_loan_application(loan_id: int, key: str, value):
         raise HTTPException(status_code=404, detail="Loan not found")
     if key in ["loan_amount_usd", "annual_income_usd"]:
         setattr(loan_application, key, float(value))
-    elif key == "applicant_name":
+    elif key in ["applicant_name", "status"]:
         setattr(loan_application, key, value)
     elif key == "loan_length_months":
         setattr(loan_application, key, int(value))
