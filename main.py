@@ -39,18 +39,19 @@ def put_loan_application(loan_id: int, updated_loan: LoanApplicationCreate):
 
 @app.patch("/loans/{loan_id}")
 def patch_loan_application(loan_id: int, key: str, value):
-    try:
-        loan_application = loan_applications[loan_id]
-    except IndexError:
-        raise HTTPException(status_code=404, detail="Loan not found")
-    if key in ["loan_amount_usd", "annual_income_usd"]:
-        setattr(loan_application, key, float(value))
-    elif key in ["applicant_name", "status"]:
-        setattr(loan_application, key, value)
-    elif key == "loan_length_months":
-        setattr(loan_application, key, int(value))
+    if loan_application := get_loan_application(loan_id):
+        if key in ["loan_amount_usd", "annual_income_usd"]:
+            setattr(loan_application, key, float(value))
+        elif key in ["applicant_name", "status"]:
+            setattr(loan_application, key, value)
+        elif key == "loan_length_months":
+            setattr(loan_application, key, int(value))
+        else:
+            raise HTTPException(status_code=404, detail="Key not found")
     else:
-        raise HTTPException(status_code=404, detail="Key not found")
+        raise HTTPException(status_code=404, detail="Loan application not found")
+
+
 
 
 @app.delete("/loans/{loan_id}")
