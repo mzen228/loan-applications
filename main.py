@@ -18,7 +18,7 @@ def read_loan_applications():
     return loan_applications
 
 
-@app.post("/loans/{loan_id}")
+@app.post("/loans/{loan_id}", status_code=201)
 def create_loan_application(loan_application_create: LoanApplicationCreate):
     new_loan_application = LoanApplication(
         applicant_name=loan_application_create.applicant_name,
