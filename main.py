@@ -14,13 +14,14 @@ def read_loan_application(loan_application_id: int):
     return {"error": "Loan application not found"}
 
 
-@app.put("/loans/{loan_application_id}")
-def update_loan_application(loan_application: LoanApplication):
+@app.put("/loans/{loan_id}")
+def update_loan_application(loan_id: int, loan_application: LoanApplication):
     new_loan_application = {
-        "id": len(loan_applications) + 1,
+        "id": loan_id,
         "name": loan_application.applicant_name,
         "amount": loan_application.amount,
         "annual_income": loan_application.annual_income,
+        "status": loan_application.status,
     }
     loan_applications.append(new_loan_application)
     return new_loan_application
