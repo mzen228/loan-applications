@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from storage import loan_applications
+from storage import loan_applications, get_loan_application
 from model import LoanApplicationCreate, LoanApplication
 
 app = FastAPI()
@@ -12,9 +12,8 @@ def read_loan_applications():
 
 @app.get("/loans/{loan_application_id}")
 def read_loan_application(loan_application_id: int):
-    for loan_application in loan_applications:
-        if loan_application_id == loan_application.id:
-            return loan_application
+    if loan_application := get_loan_application(loan_application_id):
+        return loan_application
     raise HTTPException(status_code=404, detail="Loan application not found")
 
 
