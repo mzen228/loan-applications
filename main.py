@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from storage import loan_applications, get_loan_application
+from storage import loan_applications, get_loan_application, update_loan_application
 from model import LoanApplicationCreate, LoanApplication
 
 app = FastAPI()
@@ -30,14 +30,9 @@ def create_loan_application(loan_application_create: LoanApplicationCreate):
 
 
 @app.put("/loans/{loan_id}")
-def update_loan_application(loan_id: int, updated_loan: LoanApplicationCreate):
-    for loan_application in loan_applications:
-        if loan_application.id == loan_id:
-            loan_application.applicant_name = updated_loan.applicant_name
-            loan_application.loan_amount_usd = updated_loan.loan_amount_usd
-            loan_application.loan_length_months = updated_loan.loan_length_months
-            loan_application.annual_income_usd = updated_loan.annual_income_usd
-            break
+def put_loan_application(loan_id: int, updated_loan: LoanApplicationCreate):
+    if loan_application := get_loan_application(loan_id):
+        update_loan_application(loan_application, updated_loan)
 
 
 @app.patch("/loans/{loan_id}")
