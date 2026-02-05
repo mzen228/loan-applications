@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, conint
 
 
 class LoanStatus(Enum):
@@ -15,4 +15,4 @@ class LoanApplication(BaseModel):
     applicant_name: str
     amount: float = 0
     annual_income: float
-    term_months: int
+    term_months: conint(gt=0, lt=301)

@@ -21,6 +21,7 @@ def create_loan_application(loan_application: LoanApplication):
         "name": loan_application.applicant_name,
         "amount": loan_application.amount,
         "annual_income": loan_application.annual_income,
+        "term_months": loan_application.term_months,
         "status": LoanStatus.SUBMITTED,
         "created_at": datetime.utcnow(),
     }
