@@ -15,7 +15,7 @@ def read_loan_application(loan_application_id: int):
 
 
 @app.put("/loans/{loan_id}")
-def update_loan_application(loan_id: int, loan_application: LoanApplication):
+def create_loan_application(loan_id: int, loan_application: LoanApplication):
     new_loan_application = {
         "id": loan_id,
         "name": loan_application.applicant_name,
