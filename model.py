@@ -11,7 +11,7 @@ class LoanStatus(Enum):
     DENIED = "denied"
 
 
-class LoanApplication(BaseModel):
+class LoanApplicationCreate(BaseModel):
     applicant_name: str
     amount: float = 0
     annual_income: float

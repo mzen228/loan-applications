@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from storage import loan_applications
-from model import LoanApplication, LoanStatus
+from model import LoanApplicationCreate, LoanStatus
 from datetime import datetime
 
 app = FastAPI()
@@ -15,7 +15,7 @@ def read_loan_application(loan_application_id: int):
 
 
 @app.post("/loans/{loan_id}")
-def create_loan_application(loan_application: LoanApplication):
+def create_loan_application(loan_application: LoanApplicationCreate):
     new_loan_application = {
         "id": len(loan_applications),
         "name": loan_application.applicant_name,
