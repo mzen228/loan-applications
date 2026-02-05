@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from storage import loan_applications
 
 
 class LoanApplication(BaseModel):
@@ -9,9 +10,6 @@ class LoanApplication(BaseModel):
 
 
 app = FastAPI()
-
-loan_applications = []
-
 
 @app.get("/")
 def read_root():
