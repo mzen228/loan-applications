@@ -1,12 +1,7 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 from storage import loan_applications
+from model import LoanApplication
 
-
-class LoanApplication(BaseModel):
-    applicant_name: str
-    amount: float
-    annual_income: float
 
 
 app = FastAPI()
