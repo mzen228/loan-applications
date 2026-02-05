@@ -33,7 +33,7 @@ def create_loan_application(loan_application_create: LoanApplicationCreate):
 def put_loan_application(loan_id: int, updated_loan: LoanApplicationCreate):
     if loan_application := get_loan_application(loan_id):
         update_loan_application(loan_application, updated_loan)
-        return updated_loan
+        return loan_application
     raise HTTPException(status_code=404, detail="Loan application not found")
 
 
