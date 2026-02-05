@@ -3,8 +3,8 @@ from storage import loan_applications
 from model import LoanApplication
 
 
-
 app = FastAPI()
+
 
 @app.get("/")
 def read_root():
