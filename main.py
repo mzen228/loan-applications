@@ -5,17 +5,17 @@ from model import LoanApplicationCreate, LoanApplication
 app = FastAPI()
 
 
+@app.get("/loans")
+def read_loan_applications():
+    return loan_applications
+
+
 @app.get("/loans/{loan_application_id}")
 def read_loan_application(loan_application_id: int):
     for loan_application in loan_applications:
         if loan_application_id == loan_application.id:
             return loan_application
     raise HTTPException(status_code=404, detail="Loan application not found")
-
-
-@app.get("/loans")
-def read_loan_applications():
-    return loan_applications
 
 
 @app.post("/loans/{loan_id}", status_code=201)
@@ -41,13 +41,6 @@ def update_loan_application(loan_id: int, updated_loan: LoanApplicationCreate):
             break
 
 
-@app.delete("/loans/{loan_id}")
-def delete_loan_application(loan_id: int):
-    for i, loan_application in enumerate(loan_applications):
-        if loan_id == loan_application.id:
-            loan_applications.pop(i)
-
-
 @app.patch("/loans/{loan_id}")
 def patch_loan_application(loan_id: int, key: str, value):
     try:
@@ -62,3 +55,10 @@ def patch_loan_application(loan_id: int, key: str, value):
         setattr(loan_application, key, int(value))
     else:
         raise HTTPException(status_code=404, detail="Key not found")
+
+
+@app.delete("/loans/{loan_id}")
+def delete_loan_application(loan_id: int):
+    for i, loan_application in enumerate(loan_applications):
+        if loan_id == loan_application.id:
+            loan_applications.pop(i)
