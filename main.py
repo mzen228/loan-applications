@@ -50,10 +50,15 @@ def delete_loan_application(loan_id: int):
 
 @app.patch("/loans/{loan_id}")
 def patch_loan_application(loan_id: int, key: str, value):
-    loan_application = loan_applications[loan_id]
+    try:
+        loan_application = loan_applications[loan_id]
+    except IndexError:
+        raise HTTPException(status_code=404, detail="Loan not found")
     if key in ["loan_amount_usd", "annual_income_usd"]:
         setattr(loan_application, key, float(value))
     elif key == "applicant_name":
         setattr(loan_application, key, value)
     elif key == "loan_length_months":
         setattr(loan_application, key, int(value))
+    else:
+        raise HTTPException(status_code=404, detail="Key not found")
