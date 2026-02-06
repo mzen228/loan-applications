@@ -5,7 +5,7 @@ from storage import (
     update_loan_application,
     pop_loan_application,
 )
-from model import LoanApplicationCreate, LoanApplication
+from model import LoanApplicationCreate, LoanApplication, LoanStatus
 
 app = FastAPI()
 
@@ -47,10 +47,20 @@ def patch_loan_application(loan_id: int, key: str, value):
     if loan_application := get_loan_application(loan_id):
         if key in ["loan_amount_usd", "annual_income_usd"]:
             setattr(loan_application, key, float(value))
-        elif key in ["applicant_name", "status"]:
+        elif key == "applicant_name":
             setattr(loan_application, key, value)
         elif key == "loan_length_months":
             setattr(loan_application, key, int(value))
+        elif key == "status":
+            valid_status_changes = [(LoanStatus.SUBMITTED, LoanStatus.APPROVED), (LoanStatus.SUBMITTED, LoanStatus.DENIED)]
+            try:
+                status_change_attempt = (loan_application.status, LoanStatus(value))
+            except ValueError:
+                raise HTTPException(status_code=404, detail="Invalid status")
+            if status_change_attempt in valid_status_changes:
+                setattr(loan_application, key, value)
+            else:
+                raise HTTPException(status_code=404, detail="Invalid status change")
         else:
             raise HTTPException(status_code=404, detail="Key not found")
     else:
