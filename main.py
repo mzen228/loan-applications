@@ -52,24 +52,24 @@ def patch_loan_application(loan_id: int, key: str, value):
         elif key == "loan_length_months":
             setattr(loan_application, key, int(value))
         elif key == "status":
-            _patch_status_change(loan_application, LoanStatus(value))
+            _patch_status_change(loan_application, value)
         else:
             raise HTTPException(status_code=400, detail="Key not found")
     else:
         raise HTTPException(status_code=404, detail="Loan application not found")
 
 
-def _patch_status_change(loan_application: LoanApplication, desired_status: LoanStatus):
+def _patch_status_change(loan_application: LoanApplication, status_name: str):
     valid_status_changes = [
         (LoanStatus.SUBMITTED, LoanStatus.APPROVED),
         (LoanStatus.SUBMITTED, LoanStatus.DENIED),
     ]
     try:
-        status_change_attempt = (loan_application.status, desired_status)
+        status_change_attempt = (loan_application.status, LoanStatus(status_name))
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid status")
     if status_change_attempt in valid_status_changes:
-        loan_application.status = LoanStatus(desired_status)
+        loan_application.status = status_change_attempt[1]
     else:
         raise HTTPException(status_code=400, detail="Invalid status change")
 
