@@ -21,4 +21,4 @@ Stack:
 - In-memory sotrage 
 - No frotn-end
 
-The objective of this API is to learn the fundamentals of REST APIs.
+The objective of developing this API is to learn the fundamentals of REST APIs.
