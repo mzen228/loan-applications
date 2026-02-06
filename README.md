@@ -18,7 +18,7 @@ Key endpoints:
 Stack:
 - Python
 - FastAPI 
-- In-memory sotrage 
-- No frotn-end
+- In-memory storage
+- No front-end
 
 The objective of developing this API is to learn the fundamentals of REST APIs.
