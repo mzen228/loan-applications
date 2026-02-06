@@ -1,12 +1,12 @@
 ## Loan Application API
 
-Core features:
+### Core features:
 - Creates loan applications
 - Reads loan applications
 - Update loan applications
 - Delete loan applications
 
-Key endpoints:
+### Key endpoints:
 
 - POST /loans
 - GET /loans
@@ -15,7 +15,7 @@ Key endpoints:
 - PATCH /loans/{loan_id}
 - DELETE /loans/{loan_id}
 
-Stack:
+### Stack:
 - Python
 - FastAPI 
 - In-memory storage
