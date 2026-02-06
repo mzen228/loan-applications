@@ -56,13 +56,13 @@ def patch_loan_application(loan_id: int, key: str, value):
             try:
                 status_change_attempt = (loan_application.status, LoanStatus(value))
             except ValueError:
-                raise HTTPException(status_code=404, detail="Invalid status")
+                raise HTTPException(status_code=400, detail="Invalid status")
             if status_change_attempt in valid_status_changes:
                 setattr(loan_application, key, value)
             else:
-                raise HTTPException(status_code=404, detail="Invalid status change")
+                raise HTTPException(status_code=400, detail="Invalid status change")
         else:
-            raise HTTPException(status_code=404, detail="Key not found")
+            raise HTTPException(status_code=400, detail="Key not found")
     else:
         raise HTTPException(status_code=404, detail="Loan application not found")
 
