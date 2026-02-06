@@ -57,6 +57,7 @@ def patch_loan_application(loan_id: int, key: str, value):
             raise HTTPException(status_code=400, detail="Key not found")
     else:
         raise HTTPException(status_code=404, detail="Loan application not found")
+    return loan_application
 
 
 def _patch_status_change(loan_application: LoanApplication, status_name: str):
