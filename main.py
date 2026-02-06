@@ -57,7 +57,7 @@ def patch_loan_application(loan_id: int, key: str, value):
         raise HTTPException(status_code=404, detail="Loan application not found")
 
 
-@app.delete("/loans/{loan_id}")
+@app.delete("/loans/{loan_id}", status_code=204)
 def delete_loan_application(loan_id: int):
     if pop_loan_application(loan_id):
         return
