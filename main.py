@@ -52,19 +52,26 @@ def patch_loan_application(loan_id: int, key: str, value):
         elif key == "loan_length_months":
             setattr(loan_application, key, int(value))
         elif key == "status":
-            valid_status_changes = [(LoanStatus.SUBMITTED, LoanStatus.APPROVED), (LoanStatus.SUBMITTED, LoanStatus.DENIED)]
-            try:
-                status_change_attempt = (loan_application.status, LoanStatus(value))
-            except ValueError:
-                raise HTTPException(status_code=400, detail="Invalid status")
-            if status_change_attempt in valid_status_changes:
-                setattr(loan_application, key, value)
-            else:
-                raise HTTPException(status_code=400, detail="Invalid status change")
+            _patch_status_change(loan_application, value)
         else:
             raise HTTPException(status_code=400, detail="Key not found")
     else:
         raise HTTPException(status_code=404, detail="Loan application not found")
+
+
+def _patch_status_change(loan_application, value):
+    valid_status_changes = [
+        (LoanStatus.SUBMITTED, LoanStatus.APPROVED),
+        (LoanStatus.SUBMITTED, LoanStatus.DENIED),
+    ]
+    try:
+        status_change_attempt = (loan_application.status, LoanStatus(value))
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid status")
+    if status_change_attempt in valid_status_changes:
+        setattr(loan_application, "status", value)
+    else:
+        raise HTTPException(status_code=400, detail="Invalid status change")
 
 
 @app.delete("/loans/{loan_id}", status_code=204)
